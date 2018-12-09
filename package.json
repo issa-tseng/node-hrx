@@ -1,5 +1,18 @@
 {
   "name": "node-hrx",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "description": "A parser/library for the HRX human readable archive format",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/clint-tseng/node-hrx.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "devDependencies": {
+    "mocha": "~5",
+    "should": "~13",
+    "streamtest": "~1"
+  }
 }
-
