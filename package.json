@@ -7,6 +7,7 @@
     "url": "git://github.com/clint-tseng/node-hrx.git"
   },
   "license": "MIT",
+  "main": "lib/hrx",
   "scripts": {
     "test": "mocha test"
   },
