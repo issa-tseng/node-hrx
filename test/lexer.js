@@ -97,7 +97,7 @@ describe('lexing', () => {
     ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'test.file' } }));
 
     it('should complain if a File tries to overwrite an explicit Directory', () => lexing([
-      { type: 'directory', path: 'dir' },
+      { type: 'directory', path: 'dir/' },
       { type: 'file', path: 'dir', body: 'how are you?' }
     ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'dir' } }));
 
@@ -109,9 +109,9 @@ describe('lexing', () => {
 
   describe('directories', () => {
     it('should integrate implicit and explicit directories', () => lexing([
-      { type: 'directory', path: 'nested' },
+      { type: 'directory', path: 'nested/' },
       { type: 'file', path: 'nested/directory/file', body: 'xyz' },
-      { type: 'directory', path: 'nested/directory' }
+      { type: 'directory', path: 'nested/directory/' }
     ]).then((archive) => {
       archive.should.eql(new Archive({
         nested: new Directory('nested', {
@@ -123,7 +123,7 @@ describe('lexing', () => {
     }));
 
     it('should create nested explicit directories', () => lexing([
-      { type: 'directory', path: 'nested/directory/dir' }
+      { type: 'directory', path: 'nested/directory/dir/' }
     ]).then((archive) => {
       archive.should.eql(new Archive({
         nested: new Directory('nested', {
@@ -136,7 +136,7 @@ describe('lexing', () => {
 
     it('should attach comments to directories', () => lexing([
       { type: 'comment', body: 'commentary' },
-      { type: 'directory', path: 'dir' }
+      { type: 'directory', path: 'dir/' }
     ]).then((archive) => {
       archive.should.eql(new Archive({
         dir: new Directory('dir', null, 'commentary')
@@ -146,7 +146,7 @@ describe('lexing', () => {
     it('should attach explicit comments to implicit directories', () => lexing([
       { type: 'file', path: 'dir/file', body: 'the file' },
       { type: 'comment', body: 'commentary' },
-      { type: 'directory', path: 'dir' }
+      { type: 'directory', path: 'dir/' }
     ]).then((archive) => {
       archive.should.eql(new Archive({
         dir: new Directory('dir', {
@@ -156,14 +156,14 @@ describe('lexing', () => {
     }));
 
     it('should complain given duplicate explicit Directories', () => lexing([
-      { type: 'directory', path: 'test.directory' },
-      { type: 'directory', path: 'test.directory' }
-    ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'test.directory' } }));
+      { type: 'directory', path: 'test.directory/' },
+      { type: 'directory', path: 'test.directory/' }
+    ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'test.directory/' } }));
 
     it('should complain if a Directory tries to overwrite a File', () => lexing([
       { type: 'file', path: 'test', body: 'test file' },
-      { type: 'directory', path: 'test' }
-    ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'test' } }));
+      { type: 'directory', path: 'test/' }
+    ]).should.be.rejectedWith(LexicalProblem, { details: { path: 'test/' } }));
   });
 
   describe('archive', () => {
@@ -171,7 +171,7 @@ describe('lexing', () => {
       .then((archive) => { archive.should.eql(new Archive()); }));
 
     it('should attach a stream-ending comment record to the archive', () => lexing([
-      { type: 'directory', path: 'directory' },
+      { type: 'directory', path: 'directory/' },
       { type: 'comment', body: 'file comment' },
       { type: 'file', path: 'test.file', body: 'cool file' },
       { type: 'comment', body: 'archive comment' }
