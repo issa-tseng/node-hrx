@@ -2,6 +2,8 @@
 
 A (currently read-only) implementation of the [HRX human-readable archive](https://github.com/google/hrx) format. It has zero runtime dependencies.
 
+[![Build Status](https://img.shields.io/travis/clint-tseng/node-hrx.svg)](http://travis-ci.org/clint-tseng/node-hrx) [![NPM version](https://img.shields.io/npm/v/node-hrx.svg)](https://www.npmjs.com/package/node-hrx)
+
 ## usage
 
 The package contains the following exports:
